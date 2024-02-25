@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-fsd-checker-imports",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Plugin for checking the compliance of imports using the FSD methodology",
   "keywords": [
     "eslint",
