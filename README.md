@@ -21,7 +21,7 @@ npm install --save-dev eslint-plugin-fsd-checker-imports
 
 Добавляем плагин `eslint-plugin-fsd-checker-imports` в секцию плагинов вашего конфигурационного файла `.eslintrc` . Префикс `eslint-plugin-` в названии плагина исключаем :
 
-```json
+```
 module.exports = {
     // other info ...
     "plugins": [ 
