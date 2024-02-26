@@ -55,4 +55,6 @@ TODO: Run eslint-doc-generator to generate the configs list (or delete this sect
 TODO: Run eslint-doc-generator to generate the rules list.
 <!-- end auto-generated rules list -->
 
+Доработать пути где есть "./" такие пути разрешать так как они точно лежат рядом, а все остальные пути выдавать ошибку.
+Попробовать добавить исправление как сделано для относительных путей.
 
