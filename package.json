@@ -5,7 +5,10 @@
   "keywords": [
     "eslint",
     "eslintplugin",
-    "eslint-plugin"
+    "eslint-plugin",
+    "fsd",
+    "feature sliced design",
+    "FSD methodology"
   ],
   "author": "nayteruz",
   "main": "./lib/index.js",
