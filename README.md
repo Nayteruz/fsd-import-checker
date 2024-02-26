@@ -1,58 +1,92 @@
-# eslint-plugin-fsd-import-checker
+# eslint-plugin-fsd-checker-imports
 
-Plugin for checking the compliance of imports using the FSD methodology
+Плагин для проверки правильности путей согласно FSD(Feature Sliced Design) методологии
 
-## Installation
+## Установка
 
-You'll first need to install [ESLint](https://eslint.org/):
+Сначала необходимо установить сам [ESLint](https://eslint.org/):
 
 ```sh
 npm i eslint --save-dev
 ```
 
-Next, install `eslint-plugin-fsd-import-checker`:
+Затем устанавливаем `eslint-plugin-fsd-checker-imports`:
 
 ```sh
-npm install eslint-plugin-fsd-import-checker --save-dev
+npm install --save-dev eslint-plugin-fsd-checker-imports 
 ```
 
-## Usage
+## Использование
 
-Add `fsd-import-checker` to the plugins section of your `.eslintrc` configuration file. You can omit the `eslint-plugin-` prefix:
+Добавляем плагин `eslint-plugin-fsd-checker-imports` в секцию плагинов вашего конфигурационного файла `.eslintrc` . Префикс `eslint-plugin-` в названии плагина исключаем :
 
-```json
-{
-    "plugins": [
-        "fsd-import-checker"
-    ]
+```json lines
+module.exports = {
+    // other info ...
+    "plugins": [ 
+      // "other-plugins",
+      "fsd-checker-imports"
+    ],
+  // other info ...
 }
 ```
 
 
-Then configure the rules you want to use under the rules section.
+### Использование в секции `rules`
 
-```json
-{
+`path-checker` - используется для проверки правильности пути(относительный/абсолютный).
+Относительными пути могут быть только внутри модуля, между слоями(shared, feature) пути должны быть абсолютными. Для shared слоя пути по умолчанию абсолютные.
+Если используется алиас, необходимо его указать.
+```json lines
+module.exports = {
+    //...
     "rules": {
-        "fsd-import-checker/rule-name": 2
+      "fsd-checker-imports/path-checker": [
+        "error", { alias: "@" }
+      ]
+    },
+    //...
+}
+```
+`layer-imports` - проверка импорта слоев согласно методологии. Например, shared можно импортировать в любой слой, а во features можно имортировать только 'shared' и 'entities'. Данное правильно это проверяет.
+Если используется алиас, необходимо его указать.
+ignoreImportPatterns - указывает какие паттерны файлов игнорировать.
+```json lines
+module.exports = {
+    "rules": {
+      //...
+      "fsd-checker-imports/layer-imports": [
+        "error",
+        {
+          alias: "@",
+          ignoreImportPatterns: ["**/StoryProvider", "**/testing"],
+        },
+      ],
+      //...
     }
 }
 ```
-
-
-
-## Configurations
-
-<!-- begin auto-generated configs list -->
-TODO: Run eslint-doc-generator to generate the configs list (or delete this section if no configs are offered).
-<!-- end auto-generated configs list -->
-
-
-
-## Rules
-
-<!-- begin auto-generated rules list -->
-TODO: Run eslint-doc-generator to generate the rules list.
-<!-- end auto-generated rules list -->
+`public-api-imports` проверяет правильность импорт публичного api. Правильно проверяет что бы код экспортировался только из публичного api.
+Если используется алиас, необходимо его указать.
+testFilesPatterns - указывает какие паттерны файлов игнорировать.
+```json lines
+module.exports = {
+    "rules": {
+      //..
+      "fsd-checker-imports/public-api-imports": [
+        "error",
+        {
+          alias: "@",
+          testFilesPatterns: [
+            "**/*.test.*",
+            "**/*.story.*",
+            "**/StoryDecorator.tsx",
+          ],
+        },
+      ],
+      //...
+    }
+}
+```
 
 
